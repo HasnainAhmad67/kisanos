@@ -1,0 +1,35 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "KisanOS Vision Agent output (FINAL team contract v1.0)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["agent_id", "assessment_id", "status", "summary", "observations", "possible_causes",
+               "checks", "evidence_band", "evidence_reason", "sources", "provider_or_model",
+               "version", "created_at", "safety_flags"],
+  "properties": {
+    "agent_id": {"const": "vision"},
+    "assessment_id": {"type": "string", "format": "uuid",
+      "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"},
+    "status": {"enum": ["complete", "partial", "unavailable", "error"]},
+    "summary": {"type": "string", "minLength": 1},
+    "observations": {"type": "array", "items": {"type": "string"}},
+    "possible_causes": {"type": "array", "items": {"type": "string"}},
+    "checks": {"type": "array", "items": {"type": "string"}},
+    "evidence_band": {"enum": ["low", "medium", "high", "not_calibrated"]},
+    "evidence_reason": {"type": "string", "minLength": 1},
+    "sources": {"type": "array", "items": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["title", "url", "publisher", "retrieved_at", "source_status"],
+      "properties": {
+        "title": {"type": "string", "minLength": 1},
+        "url": {"type": "string", "pattern": "^https?://"},
+        "publisher": {"type": "string", "minLength": 1},
+        "retrieved_at": {"type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$"},
+        "source_status": {"enum": ["official", "supporting", "secondary", "unverified"]}}}},
+    "provider_or_model": {"enum": ["open-meteo", "gemini", "groq", "amis", "self-hosted"]},
+    "version": {"type": "string", "minLength": 1},
+    "created_at": {"type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$"},
+    "safety_flags": {"type": "array", "items": {"type": "string"}}
+  }
+}

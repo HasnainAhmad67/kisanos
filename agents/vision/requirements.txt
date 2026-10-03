@@ -1,0 +1,3 @@
+numpy
+Pillow
+pydantic>=2   # only needed for schema.py (backend/local checks)
