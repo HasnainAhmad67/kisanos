@@ -1,0 +1,3 @@
+pydantic>=2       # schema validation (required)
+groq              # optional: only for the AI_ENHANCED section (Groq, openai/gpt-oss-120b)
+python-dotenv     # optional: loads GROQ_API_KEY from your .env file
